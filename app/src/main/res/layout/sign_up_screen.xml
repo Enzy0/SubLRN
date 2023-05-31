@@ -39,7 +39,7 @@
         android:id="@+id/regemailtxt"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="#234D6F"
         android:ems="10"
         android:hint="EMail"

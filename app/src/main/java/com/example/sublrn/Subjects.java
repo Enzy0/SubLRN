@@ -33,6 +33,7 @@ public class Subjects extends AppCompatActivity {
                 mAuth.signOut();
                 Intent intent = new Intent(Subjects.this, SingInScreen.class);
                 startActivity(intent);
+                Subjects.this.finish();
             }
         });
     }
