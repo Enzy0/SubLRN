@@ -22,6 +22,7 @@ public class SignUpScreen extends AppCompatActivity {
 
     private EditText regemailtxt;
     private EditText regpasstxt;
+    private EditText regpassconftxt;
     private Button regbtn;
     private FirebaseAuth mAuth;
 
@@ -35,6 +36,7 @@ public class SignUpScreen extends AppCompatActivity {
 
         regemailtxt = findViewById(R.id.regemailtxt);
         regpasstxt = findViewById(R.id.regpasstxt);
+        regpassconftxt = findViewById(R.id.regpassconftxt);
         regbtn = findViewById(R.id.regbtn);
 
         mAuth = FirebaseAuth.getInstance();
@@ -42,23 +44,28 @@ public class SignUpScreen extends AppCompatActivity {
         regbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (regemailtxt.getText().toString().isEmpty() || regpasstxt.getText().toString().isEmpty()){
-                    Toast.makeText(SignUpScreen.this, "Поля должны быть заполнены", Toast.LENGTH_SHORT).show();
-                }else{
-                    mAuth.createUserWithEmailAndPassword(regemailtxt.getText().toString(),regpasstxt.getText().toString())
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
-                                        Intent intent = new Intent(SignUpScreen.this, Subjects.class);
-                                        startActivity(intent);
-                                    }else{
-                                        Toast.makeText(SignUpScreen.this, "Проблемы с данными", Toast.LENGTH_SHORT).show();
+                if (regpassconftxt.getText().toString().equals(regpasstxt.getText().toString())) {
+                    if (regemailtxt.getText().toString().isEmpty() || regpasstxt.getText().toString().isEmpty() || regpassconftxt.getText().toString().isEmpty()) {
+                        Toast.makeText(SignUpScreen.this, "Поля должны быть заполнены", Toast.LENGTH_SHORT).show();
+                    } else {
+                        mAuth.createUserWithEmailAndPassword(regemailtxt.getText().toString(), regpasstxt.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            Intent intent = new Intent(SignUpScreen.this, Subjects.class);
+                                            startActivity(intent);
+                                            SignUpScreen.this.finish();
+                                        } else {
+                                            Toast.makeText(SignUpScreen.this, "Проблемы с данными", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    }
                 }
-
+                else {
+                    Toast.makeText(SignUpScreen.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

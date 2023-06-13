@@ -50,6 +50,7 @@ public class SingInScreen extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         Intent intent = new Intent(SingInScreen.this, Subjects.class);
                                         startActivity(intent);
+                                        SingInScreen.this.finish();
                                     } else {
                                         Toast.makeText(SingInScreen.this, "Проблемы с данными", Toast.LENGTH_SHORT).show();
                                     }
